@@ -4,6 +4,8 @@ The purpose of this project is to understand the relationships/trends between po
 2. Does personal income keep pace with the growth in property values?
 3. How does the population change in towns with higher home values? (i.e. Does property values lead or lag behind population growth?)
 
+Bookdown source files for this project: https://edav-fall2021-final-project.github.io/USrealestate/
+
 *This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.*	
 
 
