@@ -2,7 +2,6 @@
 
 ```{r echo=FALSE,message=FALSE}
 library(tidyverse)
-library(plyr)
 library(dplyr)
 homevalue_city <- read.csv(file = 'data/homevalue_city_clean.csv')
 ```
