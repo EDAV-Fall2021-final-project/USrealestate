@@ -4,5 +4,8 @@ data-transformation
 missing-values
 results
 understanding-relationships-between-economic-variables
+visualizing-the-known-relationships
+observing-key-variables-across-geographies
+price-comparison-of-home-value
 interactive-component
 conclusion
