@@ -5,7 +5,6 @@
 df <- read.csv("fulldata_state.csv")
 ```
 
-Library
 ```{r, echo=FALSE, results='hide', message=FALSE}
 library(corrplot)
 library(GGally)
@@ -25,11 +24,13 @@ library(forcats)
 
 
 
-#Understanding relationships between economic variables
+
+# Understanding relationships between economic variables
+
 
 In the first step of the investigation, its important to uncover relationships between each of the variables to determine the most interesting direction for the team to cover. The most obvious way is to determine whether there's any correlations exist between home value, population, housing unit, unemployment, and income. This can be achieve through a correlation matrix, pairs plot, parallel coordinates chart. 
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 housedata <- df
 numframe <- housedata[,4:8]
 
@@ -39,27 +40,34 @@ corrplot(M, method="number")
 pairs(numframe)
 
 ```
-In the correlation matrix above, it is most obvious that there is a strong correlation between population and housing unit over the years. This should be natural in normal functioning society with low number of homelessness. However, there doesn't seem to be any correlation between population and housing unit, which is interesting because this suggests that increasing population did not put upward pressure towards home values. Again, this can indiate that the home building market is efficient and is keeping up with population thus relieving any potential pent up demand. 
 
-The second interesting observation here is the correlation (0.62) between income and home value. This suggests that increase in income in a State is also linked to increasing home values. Delving deeper, unemployment rate is negatively correlated (-0.52) to income but has little to no correlation (-0.18) to home values. This is interesting because perhaps income is a bridging variable that connect unemployment to home values.
+  In the correlation matrix above, it is most obvious that there is a strong correlation between population and housing unit over the years. This should be natural in normal functioning society with low number of homelessness. However, there doesn't seem to be any correlation between population and housing unit, which is interesting because this suggests that increasing population did not put upward pressure towards home values. Again, this can indiate that the home building market is efficient and is keeping up with population thus relieving any potential pent up demand. 
+
+  The second interesting observation here is the correlation (0.62) between income and home value. This suggests that increase in income in a State is also linked to increasing home values. Delving deeper, unemployment rate is negatively correlated (-0.52) to income but has little to no correlation (-0.18) to home values. This is interesting because perhaps income is a bridging variable that connect unemployment to home values.
 
 These results confirm this by viewing in a different perspective via parallel coordinates chart.
 
-```{r, fig.width=20, echo=FALSE, results='hide', message=FALSE}
 
-ggparcoord(housedata, columns = 4:8, alphaLines = .3,scale = "uniminmax") + facet_wrap("Year") + theme(axis.text.x=element_text(angle=45, hjust=1)) + labs(title = "Paralellel Coordinates of Key Economic Variables", subtitle = '2010 - 2019')
+```{r, fig.width=20, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
+
+ggparcoord(housedata, columns = 4:8, alphaLines = .3,scale = "uniminmax") + 
+  facet_wrap("Year") + 
+  theme(axis.text.x=element_text(angle=45, hjust=1), axis.text=element_text(size=12),axis.title.x = element_text(size = 12)) + 
+  labs(title = "Paralellel Coordinates of Key Economic Variables", subtitle = '2010 - 2019')
 
 ```
+
+
 By graphing the parallel coordinates plot and faceting over the years, the results confirm the relationships between unemployment rate, income, and home value. Furthermore, it provides insights into how it changes over time. The results suggest that following the 2008 recession unemployment rate steadily declined which lead to a increase income and then lead to an increase in home value in some states. It also confirms that population and housing unit are coorelated with each other but have no correlations with other variables.
 
 #Visualizing the known relationships
 
 After discovering the relationships between unemployment rate, income, and home value, we can extrapolate further by visualizing relationships between these variables in different perspectives. 
 
-```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE}
+```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 
-ggplot(housedata, aes(x=housedata$Unemployment.Rate, y=housedata$Income)) + geom_point() + facet_wrap(housedata$Year) + geom_density_2d() +
-  xlab("Unemployment Rate") + ylab("Income ($)") + labs(title = "Density Distribution of Income vs Unemployment Rate", subtitle = '2010 - 2019')
+p <- ggplot(housedata, aes(x=housedata$Unemployment.Rate, y=housedata$Income)) + geom_point() + facet_wrap(housedata$Year) + geom_density_2d() +
+  xlab("Unemployment Rate") + ylab("Income ($)") + labs(title = "Density Distribution of Income vs Unemployment Rate", subtitle = '2010 - 2019') 
 
 ggplot(housedata, aes(x=housedata$Income, y=housedata$Home.Value)) + geom_point() + facet_wrap(housedata$Year) + geom_density_2d() +
   xlab("Income ($)") + ylab("Home Value ($)") + labs(title = "Density Distribution of Home Value vs Income", subtitle = '2010 - 2019')
@@ -77,7 +85,7 @@ Now that these relationships are better understood, let's explore how these tren
 
 We will first look at unemployment rate over the past decade. 
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 unemployment <- subset(df, select = -c(1,4,5,6,8))
 colnames(unemployment) <- c('state','year','unemployment')
 
@@ -89,7 +97,7 @@ plot_usmap(data = unemployment, values = "unemployment", color = "white") +
 ```
 From our observations of the choropleth heat map over time, West & South East had the most severe unemployment rate in 2010. The recovery in the 9 years since then is significant. States like Nevada and California bridged 5-7% differences. It is notable because California had one of the highest unemployment rates but now commands some of the highest home prices in the U.S.
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 uny2010 <- unemployment[unemployment$year == '2010',]
 
 p2 <- plot_usmap(data = uny2010, values = "unemployment", color = "white") +
@@ -98,7 +106,7 @@ p2 <- plot_usmap(data = uny2010, values = "unemployment", color = "white") +
   theme(legend.position = "none") 
 ```
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 p1 <- ggplot(uny2010) +
 geom_bar(aes(fct_reorder(state, -unemployment), unemployment, fill=unemployment), alpha = .8, stat="identity", width = 0.8) +
 scale_fill_gradient("Percentage", low = "light blue", high = "dark blue") +
@@ -113,7 +121,7 @@ labs(x=" ", y=" ") +
 ```
 
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 
 SoilSciGuylabs <- c("Citrus", "Crop", "Cypress Swamp")
 p3 <- ggplot(uny2010) + 
@@ -133,7 +141,7 @@ p3 <- ggplot(uny2010) +
 ```
 
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 library(patchwork)
 
 patch = (p2 | p3) +  plot_layout(widths = c(4, 1))
@@ -142,7 +150,7 @@ final_plot
 ```
 Taking a closer look in the unemployment landscape of 2010, the results are remarkable given the current state of employment rates & home values. Notable states that had the highest unemployment rates amongst States are Nevada, Michigan, California, and Florida. As we review Income & Home Value, it will be more apparent that these States are notable because of their dramatic recovery. 
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 # choropleth by income
 income <- subset(df, select = -c(1,4,5,6,7))
 
@@ -156,7 +164,7 @@ plot_usmap(data =income, values = "income", color = "white") +
 ```
 As unemployment rate improved, the states that had the worst unemployment rates actually turned to have the highest incomes or neighbor states that have the highest income.
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 homevalue <- subset(df, select = -c(1,5,6,7,8))
 colnames(homevalue) <- c('state','year','homevalue')
 
@@ -168,7 +176,7 @@ plot_usmap(data = homevalue, values = "homevalue", color = "white", labels = FAL
 ```
 Noted form before, home values typically follow income. The states that developed the highest income also developed comparatively higher home prices. However, looking at the map, there's another notable trend that can be observed. Despite having some of the highest income in US, the home prices in the Northeastern part of the country did not rise as dramatically as the Western part of the US. There's not enough data to conclusively understand why; perhaps we can augment the analysis in the future with weather data, sentiments, etc. to better understand. 
 
-```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE}
+```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 ggplot(housedata, aes(x=housedata$Income, y=housedata$Home.Value, color=housedata$State.Name)) + geom_point() + geom_smooth(method = "lm") + facet_geo(~ State.Name, grid = "us_state_grid2") +
   stat_cor(aes(label = ..rr.label..), color = "red", geom = "label")  + theme(legend.position = "none") +
   xlab("Income ($)") + ylab("Home Value ($)") + labs(title = "Home Value vs Income", subtitle = '2010 - 2019 across 50 States')
@@ -183,7 +191,7 @@ We can also confirm that select Northeastern States have an increase in income b
 Finally, to conclude this study, we will further investigate home value to better understand the specifics of how it changes for each State over the years. Through understanding the price dynamics across the market, we can perhaps help buyers/readers understand the history and navigate purchasing decisions. 
 
 
-```{r, fig.height=10, echo=FALSE, results='hide', message=FALSE}
+```{r, fig.height=10, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 
 ggplot(housedata, aes(x = housedata$Home.Value, y = reorder(housedata$State.Name, housedata$Home.Value), color =df$Year)) +
   geom_point() +
@@ -197,7 +205,7 @@ From the above Cleveland Dot Plot, it is apparent that the most expensive States
 
 It is notable that most States have the highest value in the most recent year of 2019 with a few exceptions: Rhode Island & New Jersey.
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 fulldata <- read.csv("fulldata_state.csv")
 
 northeast <- c('ME','NH','VT','MA','RI','CT','NY','NJ','PA')
@@ -210,7 +218,7 @@ fulldata$region <- as.factor(ifelse(fulldata$State.Name %in% northeast, 'Northea
                             ifelse(fulldata$State.Name %in% west, 'West','null')))))
 ```
 
-```{r, fig.width=20, echo=FALSE, results='hide', message=FALSE}
+```{r, fig.width=20, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 ggplot(fulldata, aes(region,Home.Value)) + 
   geom_boxplot() + 
   facet_wrap("Year") +
@@ -225,7 +233,7 @@ Next, we can divide the geography into the 4 major regions in US. Looking at the
 4. Northeast distribution of prices have remained relatively stable throughout the decade. 
 5. Midwest has the cheapest real estate and also the most narrow distribution
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 df <- transform(df, ValuePerIncome = df$Home.Value /df$Income)
 target <- c(2010, 2019)
 subdf <- filter(df, Year %in% target)
@@ -240,7 +248,7 @@ ggplot(subdf, aes(x = subdf$ValuePerIncome, y = reorder(subdf$State.Name, subdf$
   xlab("Price/Income") + ylab("State") + labs(title = "Home Value / Income Ratio across 50 States", subtitle = '2010 - 2019')
 ```
 
-```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE}
+```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=4,fig.height=4}
 
 ggplot(subdf, aes(x=subdf$Year, y=subdf$ValuePerIncome, color=subdf$State.Name)) + geom_point() + geom_smooth(method = "lm") + facet_geo(~ State.Name, grid = "us_state_grid2") +
   stat_cor(aes(label = ..rr.label..), color = "red", geom = "label")  + theme(legend.position = "none") +

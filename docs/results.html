@@ -32,9 +32,9 @@
   
   
 <link rel="prev" href="missing-values.html"/>
-<link rel="next" href="interactive-component.html"/>
+<link rel="next" href="understanding-relationships-between-economic-variables.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -78,8 +78,9 @@
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
-<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="6" data-path="understanding-relationships-between-economic-variables.html"><a href="understanding-relationships-between-economic-variables.html"><i class="fa fa-check"></i><b>6</b> Understanding relationships between economic variables</a></li>
+<li class="chapter" data-level="7" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>7</b> Interactive component</a></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -101,54 +102,6 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
-<p>Library</p>
-<p>#Understanding relationships between economic variables</p>
-<p>In the first step of the investigation, its important to uncover relationships between each of the variables to determine the most interesting direction for the team to cover. The most obvious way is to determine whether there’s any correlations exist between home value, population, housing unit, unemployment, and income. This can be achieve through a correlation matrix, pairs plot, parallel coordinates chart.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-11-2.png" width="672" />
-In the correlation matrix above, it is most obvious that there is a strong correlation between population and housing unit over the years. This should be natural in normal functioning society with low number of homelessness. However, there doesn’t seem to be any correlation between population and housing unit, which is interesting because this suggests that increasing population did not put upward pressure towards home values. Again, this can indiate that the home building market is efficient and is keeping up with population thus relieving any potential pent up demand.</p>
-<p>The second interesting observation here is the correlation (0.62) between income and home value. This suggests that increase in income in a State is also linked to increasing home values. Delving deeper, unemployment rate is negatively correlated (-0.52) to income but has little to no correlation (-0.18) to home values. This is interesting because perhaps income is a bridging variable that connect unemployment to home values.</p>
-<p>These results confirm this by viewing in a different perspective via parallel coordinates chart.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1920" />
-By graphing the parallel coordinates plot and faceting over the years, the results confirm the relationships between unemployment rate, income, and home value. Furthermore, it provides insights into how it changes over time. The results suggest that following the 2008 recession unemployment rate steadily declined which lead to a increase income and then lead to an increase in home value in some states. It also confirms that population and housing unit are coorelated with each other but have no correlations with other variables.</p>
-<p>#Visualizing the known relationships</p>
-<p>After discovering the relationships between unemployment rate, income, and home value, we can extrapolate further by visualizing relationships between these variables in different perspectives.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
-<p>Reviewing the distribution between those 3 variables, the economic trends becomes much more apparent. First, focusing on unemployment rates vs income, following the financial crisis in 2010, unemployment rate across U.S. has a huge variance between 4% to 13%. During this year and the subsequent years, wages were capped between $40k to $80k. It wasn’t until unemployment rate was under control and below 7.5% that wages collectively increased.</p>
-<p>Now that we understand unemployment rate is a prerequisite for rising income, we can focus on income vs home values. Throughout the years, it can be observed that rising income leads to more expensive home prices. In fact, a wider range in income actually leads to a wider distribution of home value prices. In the beginning of the decade when income was much less distributed, home values across states also had less variance and was clustered under $200k per home. However, towards the end of the decade in 2019, home values &amp; and income became significantly more distributed.</p>
-<p>#Observing key variables across geographies</p>
-<p>Now that these relationships are better understood, let’s explore how these trends shift and compare across different geographies.</p>
-<p>We will first look at unemployment rate over the past decade.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-From our observations of the choropleth heat map over time, West &amp; South East had the most severe unemployment rate in 2010. The recovery in the 9 years since then is significant. States like Nevada and California bridged 5-7% differences. It is notable because California had one of the highest unemployment rates but now commands some of the highest home prices in the U.S.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" />
-Taking a closer look in the unemployment landscape of 2010, the results are remarkable given the current state of employment rates &amp; home values. Notable states that had the highest unemployment rates amongst States are Nevada, Michigan, California, and Florida. As we review Income &amp; Home Value, it will be more apparent that these States are notable because of their dramatic recovery.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" />
-As unemployment rate improved, the states that had the worst unemployment rates actually turned to have the highest incomes or neighbor states that have the highest income.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" />
-Noted form before, home values typically follow income. The states that developed the highest income also developed comparatively higher home prices. However, looking at the map, there’s another notable trend that can be observed. Despite having some of the highest income in US, the home prices in the Northeastern part of the country did not rise as dramatically as the Western part of the US. There’s not enough data to conclusively understand why; perhaps we can augment the analysis in the future with weather data, sentiments, etc. to better understand.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" />
-Lastly, by graphic Income vs Home Value for each of the State, we can validate our findings with a trend a line and Rsquared values. We can confirm that the notable Western States (e.g. CA &amp; NV) have a steeper slope when compared to the rest of the States; this supports our theory that it has the fastest growth in income and home value prices over the last decade.</p>
-<p>We can also confirm that select Northeastern States have an increase in income but home value has not grown comparatively (e.g. NJ &amp; CT)</p>
-<p>#Price comparison of Home Value</p>
-<p>Finally, to conclude this study, we will further investigate home value to better understand the specifics of how it changes for each State over the years. Through understanding the price dynamics across the market, we can perhaps help buyers/readers understand the history and navigate purchasing decisions.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" />
-From the above Cleveland Dot Plot, it is apparent that the most expensive States continued to be the most expensive. The markets that are hottest actually had the biggest price increases from the past decade and increased prices in multiples while cheaper markets only have modest gains (e.g. HI, CA, etc.)</p>
-<p>It is notable that most States have the highest value in the most recent year of 2019 with a few exceptions: Rhode Island &amp; New Jersey.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="1920" />
-Next, we can divide the geography into the 4 major regions in US. Looking at the distributions, here are the main insights:</p>
-<ol style="list-style-type: decimal">
-<li>The order of descending median home values are as follows: West, NorthEast, South, and MidWest.</li>
-<li>West has the most amount outliers on the bottom range and top range.</li>
-<li>Although South has a lower median than Northeast, the most expensive outliers are more expensive than most of Northeast.</li>
-<li>Northeast distribution of prices have remained relatively stable throughout the decade.</li>
-<li>Midwest has the cheapest real estate and also the most narrow distribution</li>
-</ol>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
-<p>As a final statement in this study, we also want to learn whether the growth in income have kept pace with the growth in home value. After all, if income was not able to keep pace, then the rise in home value could actually be a detriment to communities because it makes the housing less affordable. We do this by charting Value/Income.</p>
-<p>For the most part, states have maintained or improved on this ratio; we can observe this by the flat to downward slope. This is especially apparent in the Northeastern part of U.S.</p>
-<p>On the other hand, the Western Part of the US which have seen significant increase in Home Value have actually deteriorated this ratio; we can observe this by the positive slope. This is especially apparent for States such as CA, NV, CO, etc.</p>
-
 </div>
             </section>
 
@@ -156,7 +109,7 @@ Next, we can divide the geography into the 4 major regions in US. Looking at the
         </div>
       </div>
 <a href="missing-values.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="interactive-component.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="understanding-relationships-between-economic-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
