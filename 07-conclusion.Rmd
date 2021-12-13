@@ -1,2 +1,17 @@
 # Conclusion
 
+In this study, we were able to analyze home value across 50 States from 2010 to 2019 and the effects that economic variables (unemployment rate, income, population, and housing units) had on the effect of pricing.
+
+Given the limited scope of this study, the team was only able to scratch the surface of this complex topic. We were only able to look at a small snapshot of 10 years when inflation/deflation economic cycles go for much longer. Furthermore, this study bundles data at a State Level but does not consider different living configurations such as metropolis, suburban, vs rural. 
+
+For future iterations of this investigations, we can consider more factors and expand on this study to include the following:
+
+* Longer periods: Since this study only looked at the years 2010-2019, there’s an opportunity to dive deeper into the history of the market.
+
+* Weather Data: Given that the climates are so different across the regions of the U.S., we can also look at how this could affect living habits; perhaps fair weather attracts more residents which in turn increases home prices. 
+
+* Employment Breakdown: Given employment is a key input into home value, it is important for us to investigate the distribution of workers in each state to determine how that affects home value in a state. It might be a hint to why California increased its home values in such a short period of time.
+
+* Education Level: Education is another factor that feeds into employment and income. It would be important to see if we can draw a correlation between education level vs income vs home value. 
+
+In summary, this study provided an opportunity for the team to uncover some of the most important economic variables that drive home values. Throughout this analysis, we were able to discover interesting correlations between unemployment, income, and home value. In this instance, we discovered that variables can have second degree effects. It was not obvious at first but unemployment has a strong effect in income which in turn affects home value. Thank you for reading :)
