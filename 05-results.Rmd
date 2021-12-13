@@ -1,5 +1,6 @@
 # Results
 
+
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #Load Clean Data
 df <- read.csv("fulldata_state.csv")
@@ -25,7 +26,7 @@ library(forcats)
 
 
 
-# Understanding relationships between economic variables
+#Understanding relationships between economic variables
 
 
 In the first step of the investigation, its important to uncover relationships between each of the variables to determine the most interesting direction for the team to cover. The most obvious way is to determine whether there's any correlations exist between home value, population, housing unit, unemployment, and income. This can be achieve through a correlation matrix, pairs plot, parallel coordinates chart. 
