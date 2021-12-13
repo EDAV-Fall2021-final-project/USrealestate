@@ -20,7 +20,7 @@ This interactive plot demonstrates the average home value among 50 states in the
         }
 
         .chart {
-            width: 960px;
+            width: 800px;
             padding: 10px;
             border: 1px solid #ccc;
             margin: 0 auto;
@@ -87,7 +87,7 @@ This interactive plot demonstrates the average home value among 50 states in the
 <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
 
 <script>
-        var aWidth = 900;
+        var aWidth = 880;
         var aHeight = 500;
         var currentYear = "2019";
         var dataMap = {};
