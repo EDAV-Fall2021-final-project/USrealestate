@@ -1,0 +1,17 @@
+introduction
+data-sources
+home-value-data
+other-variables
+population
+housing-unit
+income
+unemployment-rate
+data-transformation
+missing-values
+results
+understanding-relationships-between-economic-variables
+visualizing-the-known-relationships
+observing-key-variables-across-geographies
+price-comparison-of-home-value
+interactive-component
+conclusion

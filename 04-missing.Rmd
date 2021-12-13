@@ -1,6 +1,7 @@
 # Missing values
 
 
+
 ```{r, echo = FALSE, warning = FALSE, message=FALSE}
 
 rawdata <- read.csv("homevalue_city_missing.csv")
@@ -109,7 +110,6 @@ plot_missing <- function(x, percent = TRUE) {
 ```{r, echo = FALSE, warning = FALSE, message=FALSE}
 plot_missing(rawdata, percent = FALSE)
 ```
-
 
 As mentioned in our data source section, the datasets we are using for this investigation comes from Census and Zillow. The Census datasets that we are referencing contains information such as income, population, unemployment, and housing unit. These datssets come from the government organization and are mostly complete. However, on the other hand, the home value data from Zillow, which contains 10 years of price data across 900 distinct cities in US, are missing many data points. By plotting the Zillow Data using the missing value plot, we notice that year 2010 has the maximum number of missing values of 'homevalue', and the number of missing values decreases gradually over the years. 
 
