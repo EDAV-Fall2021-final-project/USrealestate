@@ -1,5 +1,14 @@
 # Interactive component
 
+## Motivation
+
+As seen in our results in Chapter 5 for home value, our analysis covers the effect of the different economic variables on home value over 10 years. In our analysis, we were only able to visually compare across the different years & States by plotting the graphs side-by side. This make it incredibly difficult to visually confirm trends through the geographic dimension versus the temporal dimension. In order to get a better overview of these changes, we decided to create a choropleth maps of home value which can be changed over time. 
+
+## Instruction on how to engage with the interactive plot
+
+This interactive plot demonstrates the average home value among 50 states in the US for 10 years. You can double click the top year bar to activate the year change tool.  After activation, you can drag the tab throughout the years to see how the home values changes across the 50 States. When you hover your mouse over specific states on the map, you can also see a tooltip containing the state name, home value, and the year. Lastly, you can also hover over the legend to see all.
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 <style>
         body {
@@ -316,7 +325,7 @@
 
         function drawMapChart() {
             MapChart({
-                title: "标题",
+                title: "title",
                 width: aWidth,
                 height: aHeight,
                 map: mapRoot,
@@ -355,3 +364,9 @@
 
         });
 </script>
+
+## Interpretation
+
+Starting in the year 2010, we observed that the average home value among the 50 States range from 90k – 300k. Massachusetts has the highest home value in the year 2010. 
+As time passes, we notice that home value in the west region increases faster when compared to the Midwest, South, and the Northeast. In the year 2013, home value in California surpassed the home value in Massachusetts. Since then, California's home value stayed as the highest home value among the 50 states. It can also be observed that the average home value of the Northeast and the West is higher than the average home value in the South region and the Midwest. Visualizing these trends interactively enables the viewer to firmly grasp the changes of value over the years across the regions, which adds a new dimension to understanding the data when compared to just static pictures. 
+
