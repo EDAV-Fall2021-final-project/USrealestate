@@ -7,3 +7,15 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+The purpose of this study is to better understand the shift in Real Estate Prices across the 50 U.S. States and its relationship with key economic variables. This study will work towards uncovering the insights & relationships between unemployment, income, population, and housing units to determine if/how these variables drive home prices across the country. 
+
+The team chose to investigate this topic because affordable housing is one of the most important human needs. In addition to the basic need of shelter, affordable housing provides opportunities for schooling, for work, for economic activities, and for better urban planning. Residents can gain access to better schooling systems and work opportunities. Businesses can better flourish within communities with higher purchasing power. Communities can become more diverse and vibrant. 
+
+Furthermore, home purchase is one of the biggest financial decisions that a family can make. It’s an asset purchase that typically sticks with the buyer between 15-30 years. Most buyers spend between 25-40% of net worth on real estate purchases. 
+
+Given the importance of home values to our everyday lives, we want to use the data to better understand the economic trends of society and the real estate market by answering but not limited to the following key questions: 
+
+How has home values changed over time across 50 States?
+Is there a relationship between home value and income/unemployment?
+Is there a relationship between home value and population change?
+Etc.
