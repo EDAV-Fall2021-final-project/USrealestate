@@ -24,7 +24,7 @@
 <meta name="author" content="Felix Yeung / Yingfei Zhu / Yufan Cao" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,7 +74,17 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#home-value-data"><i class="fa fa-check"></i><b>2.1</b> Home Value Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#other-variables"><i class="fa fa-check"></i><b>2.2</b> Other Variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#population"><i class="fa fa-check"></i><b>2.2.1</b> Population</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#housing-unit"><i class="fa fa-check"></i><b>2.2.2</b> Housing unit</a></li>
+<li class="chapter" data-level="2.2.3" data-path="data-sources.html"><a href="data-sources.html#income"><i class="fa fa-check"></i><b>2.2.3</b> Income</a></li>
+<li class="chapter" data-level="2.2.4" data-path="data-sources.html"><a href="data-sources.html#unemployment-rate"><i class="fa fa-check"></i><b>2.2.4</b> Unemployment Rate</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
@@ -107,6 +117,10 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>Since we have a large amount of data from multiple sources, we decided to clen the data (details about methodology can be found in Chapter 4: Missing value) and build two data sets for our visualization.</p>
+<p>The first one is the data set that contain the yearly average home value data for each state. To summaries the home value of each city into each state, we calculated the home value in a certain year by averaging the home value of all the cities in that state. Similarly, to summarize our monthly data to yearly data, we averaged home value across the 12 months in a year and stored it as the yearly home value. The result is a home value data set for each state from 2010-2019 that includes state name, state initial and home value for 10 years.</p>
+<p>The second dataset we generated is the mixed data set for all our economic variables that may have an effect on home value as we listed before. Since we have 5 variables (state, home value, income, unemployment, and population), we collected 10 years worth of data and then transformed it from 3D to 2D. We used pivot-longer to increase the number of rows by transforming ‘Year’ as a column to keep in line with tidy principles.</p>
+<p>Finally with these 2 data sets, we decided to further combine them so that each row of the data set would contain the following 8 variables: Area (state full name), State Name (state initial), Year, Home value, Population, Housing Unit, Unemployment rate, and Income. This final dataset would contain informatiom from all 50 States across the years 2010 to 2019.</p>
 
 </div>
             </section>

@@ -24,7 +24,7 @@
 <meta name="author" content="Felix Yeung / Yingfei Zhu / Yufan Cao" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,7 +74,17 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#home-value-data"><i class="fa fa-check"></i><b>2.1</b> Home Value Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#other-variables"><i class="fa fa-check"></i><b>2.2</b> Other Variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#population"><i class="fa fa-check"></i><b>2.2.1</b> Population</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#housing-unit"><i class="fa fa-check"></i><b>2.2.2</b> Housing unit</a></li>
+<li class="chapter" data-level="2.2.3" data-path="data-sources.html"><a href="data-sources.html#income"><i class="fa fa-check"></i><b>2.2.3</b> Income</a></li>
+<li class="chapter" data-level="2.2.4" data-path="data-sources.html"><a href="data-sources.html#unemployment-rate"><i class="fa fa-check"></i><b>2.2.4</b> Unemployment Rate</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
@@ -107,7 +117,39 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<div id="home-value-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Home Value Data</h2>
+<p>Our goal is to explore how U.S. real estate prices in different states/cities change over the years and how economic variables effect these prices. As such, we obtained our primary dataset, which contain home value information, from Zillow’s housing data division (<a href="https://www.zillow.com/research/data/" class="uri">https://www.zillow.com/research/data/</a>).</p>
+<p>Although there are many well-known real estate websites that can provide similar data, such as foreclosure and realtor, we ultimately chose the data from Zillow as our home value resource. Zillow is the premier real estate website in the US. Not only does Zillow provide services to customers for selling, buying, renting and financing in real estate industry, the company also has a research division that focuses on collecting the most up-to-date real estate information in the US market. Their research includes home value, inventory, sale price, etc. We trust Zillow’s database because the company is open about data sources and respects the integrity of data. (<a href="https://www.zillow.com/research/about-us/" class="uri">https://www.zillow.com/research/about-us/</a>) Furthermore, the Zillow Research team states that the purpose of their research is not aimed at business profit and the team also made the code open sourced to ensure the accuracy in their home value data. The research team collects their data using their Econ Data API which can be reached from the Postman website. (<a href="https://documenter.getpostman.com/view/9197254/SzRuZCCj?version=latest" class="uri">https://documenter.getpostman.com/view/9197254/SzRuZCCj?version=latest</a>)</p>
+<p>We obtained the original data set about home value in a monthly and city level base. The raw data set contains 5 categorical variables to describe the region and name of city or state. It also has the information about size rank and region type. Home value are described through Zillow Home Value Index (ZHVI, the home value measurement in different regions within the US. The detail of the methodology of Zillow Home Value Index can be found in the Zillow Research methodology introduction website. (<a href="https://www.zillow.com/research/zhvi-methodology-2019-deep-26226/" class="uri">https://www.zillow.com/research/zhvi-methodology-2019-deep-26226/</a>) We have monthly home value for each city from 01/31/00 to 10/31/21 (in total 250 months).</p>
+<p>The potential problems of this dataset can be divided into two aspects. First, we have a significant amount of missing data for the Zillow Home Value Index, especially for early years around 2010. Second, the dataset was too granular and drilled down to the city level for each month within the past ten years. If we continue to focus on city and monthly level data, it could conceal the trend of the data could make the graph hard by cluttering the analysis.</p>
+</div>
+<div id="other-variables" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Other Variables</h2>
+<p>Before we officially start the exploratory data analysis, we discussed the key economic variables that could potentially influence home value. After brainstorming and research, we decided to focus on the most interesting variables: population, hosing unit, income and unemployment rate in the corresponding states.
+We obtained the above mentioned data for each state from 2010 to 2019 using the Census Bureau official website (<a href="https://www.census.gov" class="uri">https://www.census.gov</a>). To be more specific, each resource and related methodology are listed below:</p>
+<div id="population" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Population</h3>
+<p>Source: <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html" class="uri">https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html</a><br />
+Methodology <a href="https://www2.census.gov/programs-surveys/popest/technical-documentation/methodology/2010-2019/natstcopr-methv2.pdf" class="uri">https://www2.census.gov/programs-surveys/popest/technical-documentation/methodology/2010-2019/natstcopr-methv2.pdf</a>.</p>
+</div>
+<div id="housing-unit" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Housing unit</h3>
+<p>Source: <a href="https://www2.census.gov/programs-surveys/popest/tables/2010-2019/housing/totals/NST-EST2019-ANNHU.xlsx" class="uri">https://www2.census.gov/programs-surveys/popest/tables/2010-2019/housing/totals/NST-EST2019-ANNHU.xlsx</a><br />
+Methodology: <a href="https://www2.census.gov/programs-surveys/popest/technical-documentation/methodology/2010-2019/2019-hu-meth.pdf" class="uri">https://www2.census.gov/programs-surveys/popest/technical-documentation/methodology/2010-2019/2019-hu-meth.pdf</a></p>
+</div>
+<div id="income" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Income</h3>
+<p>Source: <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;ved=2ahUKEwiBueaZ0tH0AhWKmHIEHZ-WBasQFnoECBYQAQ&amp;url=https%3A%2F%2Fwww2.census.gov%2Fprograms-surveys%2Fcps%2Ftables%2Ftime-series%2Fhistorical-income-households%2Fh08.xls&amp;usg=AOvVaw0MqyTNSJP8VVd2wWKeoHeo" class="uri">https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;ved=2ahUKEwiBueaZ0tH0AhWKmHIEHZ-WBasQFnoECBYQAQ&amp;url=https%3A%2F%2Fwww2.census.gov%2Fprograms-surveys%2Fcps%2Ftables%2Ftime-series%2Fhistorical-income-households%2Fh08.xls&amp;usg=AOvVaw0MqyTNSJP8VVd2wWKeoHeo</a></p>
+</div>
+<div id="unemployment-rate" class="section level3" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Unemployment Rate</h3>
+<p>Additionally, we also used the unemployment rate 2010-2018 gathered by Local Area Unemployment Statistics, U.S. Bureau of Labor Statistics (BLS) and stored in the Iowa state university community indicators program dataset
+Source: <a href="https://www.icip.iastate.edu/tables/employment/unemployment-states" class="uri">https://www.icip.iastate.edu/tables/employment/unemployment-states</a>
+We added the 2019 unemployment rate using the record of BLS official website: <a href="https://www.bls.gov/lau/lastrk19.htm" class="uri">https://www.bls.gov/lau/lastrk19.htm</a></p>
 
+</div>
+</div>
 </div>
             </section>
 
