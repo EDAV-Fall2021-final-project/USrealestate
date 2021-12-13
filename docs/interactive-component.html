@@ -24,7 +24,7 @@
 <meta name="author" content="YOUR NAMES HERE" />
 
 
-<meta name="date" content="2021-12-13" />
+<meta name="date" content="2021-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,279 +189,263 @@ Home Value by States (Year 2010-2019)
         var aWidth = 880;
         var aHeight = 500;
         var currentYear = "2019";
-        var dataMap = {};
-        var aData = null;
-        var mapRoot = null;
-        var max = 700000;
-        var sectionValues = [
-            0,
-            100000,
-            200000,
-            300000,
-            400000,
-            500000,
-            600000,
-            700000
-        ];
-        var hoverColor = "#e7e717";
+var dataMap = {};
+var aData = null;
+var mapRoot = null;
+var max = 700000;
+var sectionValues = [
+    0,
+    100000,
+    200000,
+    300000,
+    400000,
+    500000,
+    600000,
+    700000
+];
+var hoverColor = "#e7e717";
 
-        // define info box
-        var tooltip = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0.0);
+var tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0.0);
 
 
-        // create content for info box based on data
-        function tooltipContent(list, title) {
-            var tpl = "<div style='margin-top:5px;'><span>";
-            tpl += "{name}: </span>{value}</div>";
-            var html = "<div style='padding-left:20px;padding-right: 20px;padding-bottom:10px;font-size:12px;'>";
-            if (title) {
-                html += "<h4>" + title + "</h4>";
-            }
-            list.forEach(function (dataItem) {
-                name = dataItem.name, value = dataItem.value;
-                html += tpl.replace("{name}", name).replace("{value}", value);
-            });
-            html += "</div>";
-            return html;
+// define info box
+function tooltipContent(list, title) {
+    var tpl = "<div style='margin-top:5px;'><span>";
+    tpl += "{name}: </span>{value}</div>";
+    var html = "<div style='padding-left:20px;padding-right: 20px;padding-bottom:10px;font-size:12px;'>";
+    if (title) {
+        html += "<h4>" + title + "</h4>";
+    }
+    list.forEach(function (dataItem) {
+        name = dataItem.name, value = dataItem.value;
+        html += tpl.replace("{name}", name).replace("{value}", value);
+    });
+    html += "</div>";
+    return html;
+}
+
+function getValue(realVal) {
+    for (let index = 0; index < sectionValues.length; index++) {
+        if (realVal < sectionValues[index]) {
+            return sectionValues[index];
         }
+    }
+    return 0;
+}
 
-        function getValue(realVal) {
-            for (let index = 0; index < sectionValues.length; index++) {
-                if (realVal < sectionValues[index]) {
-                    return sectionValues[index];
-                }
+var startColor = d3.rgb(202, 211, 237);
+var endColor = d3.rgb(45, 80, 157);
+var computeColor = d3.interpolate(startColor, endColor);
+var colorLinear = d3.scaleLinear()
+    .domain([0, max])
+    .range([0, 1])
+    ;
+var color = function (value) {
+    return computeColor(colorLinear(getValue(value)));
+};
+
+function MapChart(opt) {
+    var width = opt.width;
+    var height = opt.height;
+    var map = opt.map;
+
+    var projection = d3.geoAlbersUsa()
+        .scale(850)
+        .translate([width / 2 - 60, height / 2 - 60]);
+    var pathGenerator = d3.geoPath().projection(projection);
+
+    var chart = d3.select("#map-chart")
+        .selectAll("svg")
+        .data([null])
+        .join("svg")
+        .attr("width", width)
+        .attr("height", height)
+        ;
+    // d3.select("#map-chart .title")
+    //     .html(opt.title);
+
+    var svg = chart.selectAll(".main")
+        .data([0])
+        .join("g")
+        .attr("class", "main")
+        .attr("transform", `translate(${-30}, ${30})`);
+
+    const counties = topojson.feature(map, map.objects.states);
+    svg.selectAll('path')
+        .data(counties.features)
+        .join('path')
+        .attr('class', d => {
+            if (dataMap[d.properties.name]) {
+                return 'counties m-' + getValue(dataMap[d.properties.name][currentYear]);
             }
-            return 0;
-        }
+            return 'counties'
+        })
+        .attr('title', (d) => d.properties.name)
+        .style('fill', (d) => {
+            if (dataMap[d.properties.name]) {
+                return color(dataMap[d.properties.name][currentYear]);
+            }
+            return "#ccc";
+        })
+        .style("stroke", "#fff")
+        .style("stroke-width", 1)
+        .attr('d', (d) => pathGenerator(d))
+        .on("mousemove", function (evt, d) {
+            var value = dataMap[d.properties.name][currentYear];
+            var strhtml = tooltipContent([
+                { name: "Home value", value: `${value}` },
+                { name: "Year", value: `${currentYear}` }
+            ], d.properties.name);
 
-        var startColor = d3.rgb(202, 211, 237);
-        var endColor = d3.rgb(45, 80, 157);
-        var computeColor = d3.interpolate(startColor, endColor);
-        var colorLinear = d3.scaleLinear()
-            .domain([0, max])
-            .range([0, 1])
-            ;
-        var color = function (value) {
-            return computeColor(colorLinear(getValue(value)));
-        };
-
-        function MapChart(opt) {
-            var width = opt.width;
-            var height = opt.height;
-            var map = opt.map;
-            var max = opt.max;
-            var data = opt.data;
-
-            var colorScale = d3.scaleOrdinal([
-                "#7D74FE", "#7DFF26", "#F84F1B", "#28D8D5", "#FB95B6", "#9D9931", "#F12ABF", "#27EA88", "#549AD5", "#FEA526",
-                "#7B8D8B", "#BB755F", "#432E16", "#D75CFB", "#44E337", "#51EBE3", "#ED3D24", "#4069AE", "#E1CC72", "#E33E88",
-                "#D8A3B3", "#428B50", "#66F3A3", "#E28A2A", "#B2594D", "#609297", "#E8F03F", "#3D2241", "#954EB3", "#6A771C",
-                "#58AE2E", "#75C5E9", "#BBEB85", "#A7DAB9", "#6578E6", "#932C5F", "#865A26", "#CC78B9", "#2E5A52", "#8C9D79",
-                "#9F6270", "#6D3377", "#551927", "#DE8D5A", "#E3DEA8", "#C3C9DB", "#3A5870", "#CD3B4F", "#E476E3", "#DCAB94",
-                "#33386D", "#4DA284", "#817AA5", "#8D8384", "#624F49", "#8E211F", "#9E785B", "#355C22", "#D4ADDE", "#A98229",
-                "#E88B87", "#28282D", "#253719", "#BD89E1", "#EB33D8", "#6D311F", "#DF45AA", "#E86723", "#6CE5BC", "#765175",
-                "#942C42", "#986CEB", "#8CC488", "#8395E3", "#D96F98", "#9E2F83", "#CFCBB8", "#4AB9B7", "#E7AC2C", "#E96D59",
-                "#929752", "#5E54A9", "#CCBA3F", "#BD3CB8", "#408A2C", "#8AE32E", "#5E5621", "#ADD837", "#BE3221", "#8DA12E",
-                "#3BC58B", "#6EE259", "#52D170", "#D2A867", "#5C9CCD", "#DB6472", "#B9E8E0", "#CDE067", "#9C5615", "#536C4F",
-                "#A74725", "#CBD88A", "#DF3066", "#E9D235", "#EE404C", "#7DB362", "#B1EDA3", "#71D2E1", "#A954DC", "#91DF6E",
-                "#CB6429", "#D64ADC", "#DF3066", "#E90205", "#E04F4C", "#7D0360", "#01EDA3", "#716291", "#695DDC", "#919FFE",
-            ]);
-
-
-            var projection = d3.geoAlbersUsa()
-                .scale(850)
-                .translate([width / 2 - 60, height / 2 - 60]);
-            var pathGenerator = d3.geoPath().projection(projection);
-
-            var chart = d3.select("#map-chart")
-                .selectAll("svg")
-                .data([null])
-                .join("svg")
-                .attr("width", width)
-                .attr("height", height)
+            tooltip.html(strhtml)
+                .style("width", "auto")
+                .style("height", "auto")
+                .style("left", (evt.pageX - 80) + "px")
+                .style("top", (evt.pageY + 60) + "px")
+                .style("opacity", 0.8)
                 ;
-            // d3.select("#map-chart .title")
-            //     .html(opt.title);
-
-            var svg = chart.selectAll(".main")
-                .data([0])
-                .join("g")
-                .attr("class", "main")
-                .attr("transform", `translate(${-30}, ${30})`);
-
-            const counties = topojson.feature(map, map.objects.states);
-            svg.selectAll('path')
-                .data(counties.features)
-                .join('path')
-                .attr('class', d => {
-                    if (dataMap[d.properties.name]) {
-                        return 'counties m-' + getValue(dataMap[d.properties.name][currentYear]);
-                    }
-                    return 'counties'
-                })
-                .attr('title', (d) => d.properties.name)
+            d3.select(this)
+                .style("fill", hoverColor)
+                ;
+            d3.selectAll(`.lg-${getValue(value)}`)
+                .style("fill", hoverColor)
+                ;
+        })
+        .on("mouseout", function (evt, d) {
+            tooltip.style("width", 0)
+                .style("height", 0)
+                .style("opacity", 0.0);
+            d3.select(this)
                 .style('fill', (d) => {
                     if (dataMap[d.properties.name]) {
                         return color(dataMap[d.properties.name][currentYear]);
                     }
                     return "#ccc";
                 })
-                .style("stroke", "#fff")
-                .style("stroke-width", 1)
-                .attr('d', (d) => pathGenerator(d))
-                .on("mousemove", function (evt, d) {
-                    var value = dataMap[d.properties.name][currentYear];
-                    var strhtml = tooltipContent([
-                        { name: "Home value", value: `${value}` },
-                        { name: "Year", value: `${currentYear}` }
-                    ], d.properties.name);
-
-                    tooltip.html(strhtml)
-                        .style("width", "auto")
-                        .style("height", "auto")
-                        .style("left", (evt.pageX - 80) + "px")
-                        .style("top", (evt.pageY + 60) + "px")
-                        .style("opacity", 0.8)
-                        ;
-                    d3.select(this)
-                        .style("fill", hoverColor)
-                        ;
-                    d3.selectAll(`.lg-${getValue(value)}`)
-                        .style("fill", hoverColor)
-                        ;
-                })
-                .on("mouseout", function (evt, d) {
-                    tooltip.style("width", 0)
-                        .style("height", 0)
-                        .style("opacity", 0.0);
-                    d3.select(this)
-                        .style('fill', (d) => {
-                            if (dataMap[d.properties.name]) {
-                                return color(dataMap[d.properties.name][currentYear]);
-                            }
-                            return "#ccc";
-                        })
-                        ;
-                    d3.selectAll(`.legend-item`)
-                        .style("fill", d => {
-                            return color(sectionValues[d]);
-                        })
-                        ;
-                })
-                .on("click", function (evt, d) {
-                    currentContinent = d.properties.name;
-                })
                 ;
-
-            var legendSize = 20, legendData = [0, 1, 2, 3, 4, 5, 6],
-                legendLeft = width - 250;
-            var legendTop = (height - legendData.length * legendSize) / 2;
-
-            var legend = svg.selectAll("#legend")
-                .data([0])
-                .join("g")
-                .attr("id", "legend")
-                .attr("transform", `translate(${legendLeft}, ${legendTop})`)
-                ;
-            legend.selectAll(".legend-item")
-                .data(legendData)
-                .enter()
-                .append("rect")
-                .attr("class", d => {
-                    return "legend-item lg-" + sectionValues[d + 1];
-                })
-                .attr("width", legendSize)
-                .attr("height", legendSize)
-                .attr("x", 0)
-                .attr("y", d => d * (legendSize + 8))
-                .on("mousemove", function (evt, d) {
-                    d3.selectAll(`.m-${sectionValues[d + 1]}`)
-                        .style("fill", hoverColor)
-                        ;
-                    d3.select(this)
-                        .style("fill", hoverColor)
-                        ;
-                })
-                .on("mouseout", function (evt, e) {
-                    tooltip.style("width", 0)
-                        .style("height", 0)
-                        .style("opacity", 0.0);
-                    d3.selectAll(`.m-${sectionValues[e + 1]}`)
-                        .style('fill', (d) => {
-                            if (dataMap[d.properties.name]) {
-                                return color(dataMap[d.properties.name][currentYear]);
-                            }
-                            return "#ccc";
-                        })
-                    d3.select(this)
-                        .style("fill", d => {
-                            return color(sectionValues[d]);
-                        })
-                        ;
-                });
-
-            legend.selectAll(".legend-item")
-                .data(legendData)
+            d3.selectAll(`.legend-item`)
                 .style("fill", d => {
                     return color(sectionValues[d]);
-                });
+                })
+                ;
+        })
+        .on("click", function (evt, d) {
+            currentContinent = d.properties.name;
+        })
+        ;
 
-            legend.selectAll(".legend-txt")
-                .data(legendData)
-                .enter()
-                .append("text")
-                .attr("class", "legend-txt")
-                .attr("dx", legendSize + 8)
-                .attr("dy", d => d * (legendSize + 8) + 17);
+    var legendSize = 20, legendData = [0, 1, 2, 3, 4, 5, 6],
+        legendLeft = width - 250;
+    var legendTop = (height - legendData.length * legendSize) / 2;
 
-            legend.selectAll(".legend-txt")
-                .data(legendData)
-                .text(d => `${sectionValues[d]} to ${sectionValues[d + 1]}`);
-        }
-
-        function drawMapChart() {
-            MapChart({
-                title: "title",
-                width: aWidth,
-                height: aHeight,
-                map: mapRoot,
-                data: aData,
-                max: max
-            });
-        }
-        d3.json("counties-10m.json").then(function (root) {
-            d3.csv("home_value_state_1.csv").then(function (data) {
-                d3.selectAll(".page").style("display", "block");
-                var columns = data.columns.slice(3);
-                data.forEach(d => {
-                    dataMap[d.Statename] = d;
-                    columns.forEach(name => {
-                        d[name] = +d[name];
-                        max = Math.max(max, d[name]);
-                    });
-                });
-                mapRoot = root;
-                aData = data;
-
-                $("#range-slider").ionRangeSlider({
-                    skin: "sharp",
-                    values: columns,
-                    from: columns.length - 1,
-                    grid: false,
-                    grid_snap: false,
-                    prefix: "",
-                    onFinish: function (data) {
-                        currentYear = columns[data.from];
-                        drawMapChart();     // re-draw map using selected year
+    var legend = svg.selectAll("#legend")
+        .data([0])
+        .join("g")
+        .attr("id", "legend")
+        .attr("transform", `translate(${legendLeft}, ${legendTop})`)
+        ;
+    legend.selectAll(".legend-item")
+        .data(legendData)
+        .enter()
+        .append("rect")
+        .attr("class", d => {
+            return "legend-item lg-" + sectionValues[d + 1];
+        })
+        .attr("width", legendSize)
+        .attr("height", legendSize)
+        .attr("x", 0)
+        .attr("y", d => d * (legendSize + 8))
+        .on("mousemove", function (evt, d) {
+            d3.selectAll(`.m-${sectionValues[d + 1]}`)
+                .style("fill", hoverColor)
+                ;
+            d3.select(this)
+                .style("fill", hoverColor)
+                ;
+        })
+        .on("mouseout", function (evt, e) {
+            tooltip.style("width", 0)
+                .style("height", 0)
+                .style("opacity", 0.0);
+            d3.selectAll(`.m-${sectionValues[e + 1]}`)
+                .style('fill', (d) => {
+                    if (dataMap[d.properties.name]) {
+                        return color(dataMap[d.properties.name][currentYear]);
                     }
-                });
-                drawMapChart();     // draw map by default year
-            });
-
+                    return "#ccc";
+                })
+            d3.select(this)
+                .style("fill", d => {
+                    return color(sectionValues[d]);
+                })
+                ;
         });
+
+    legend.selectAll(".legend-item")
+        .data(legendData)
+        .style("fill", d => {
+            return color(sectionValues[d]);
+        });
+
+    legend.selectAll(".legend-txt")
+        .data(legendData)
+        .enter()
+        .append("text")
+        .attr("class", "legend-txt")
+        .attr("dx", legendSize + 8)
+        .attr("dy", d => d * (legendSize + 8) + 17);
+
+    legend.selectAll(".legend-txt")
+        .data(legendData)
+        .text((d,i) => {
+            var start = i > 0?sectionValues[d]/1000:0;
+            return `${start}k to ${sectionValues[d + 1]/1000}k`;
+        });
+}
+
+function drawMapChart() {
+    MapChart({
+        title: "标题",
+        width: aWidth,
+        height: aHeight,
+        map: mapRoot,
+        data: aData,
+        max: max
+    });
+}
+d3.json("counties-10m.json").then(function (root) {
+    d3.csv("home_value_state_1.csv").then(function (data) {
+        d3.selectAll(".page").style("display", "block");
+        var columns = data.columns.slice(3);
+        data.forEach(d => {
+            dataMap[d.Statename] = d;
+            columns.forEach(name => {
+                d[name] = +d[name];
+                max = Math.max(max, d[name]);
+            });
+        });
+        mapRoot = root;
+        aData = data;
+
+        $("#range-slider").ionRangeSlider({
+            skin: "sharp",
+            values: columns,
+            from: columns.length - 1,
+            grid: false,
+            grid_snap: false,
+            prefix: "",
+            onFinish: function (data) {
+                currentYear = columns[data.from];
+                drawMapChart();
+            }
+        });
+        drawMapChart();
+    });
+
+});
 </script>
 </div>
 <div id="interpretation" class="section level2">
