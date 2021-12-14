@@ -14,4 +14,7 @@ visualizing-the-known-relationships
 observing-key-variables-across-geographies
 price-comparison-of-home-value
 interactive-component
+motivation
+instruction-on-how-to-engage-with-the-interactive-plot
+interpretation
 conclusion

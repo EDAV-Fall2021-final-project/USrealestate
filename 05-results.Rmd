@@ -97,7 +97,7 @@ colnames(unemployment) <- c('state','year','unemployment')
 plot_usmap(data = unemployment, values = "unemployment", color = "white") +
   facet_wrap(~year) +
    scale_fill_continuous(low = "skyblue", high = "yellow", name = "Unemployment") +
-  labs(title = "Unemployment by States", subtitle = 'Yearly Adjusted') +
+  labs(title = "Unemployment by States", subtitle = '2010 - 2019') +
   theme(legend.position = "right")
 ```
 
@@ -159,7 +159,7 @@ final_plot
 
 Taking a closer look in the unemployment landscape of 2010, the results are remarkable given the current state of employment rates & home values. Notable states that had the highest unemployment rates amongst States are Nevada, Michigan, California, and Florida. As we review Income & Home Value, it will be more apparent that these States are notable because of their dramatic recovery. 
 
-```{r, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=9,fig.height=9}
 # choropleth by income
 income <- subset(df, select = -c(1,4,5,6,7))
 
@@ -168,38 +168,41 @@ colnames(income) <- c('state','year','income')
 plot_usmap(data =income, values = "income", color = "white") +
   facet_wrap(~year) +
    scale_fill_continuous(low = "mediumspringgreen", high = "red", name = "Income", labels = scales::comma) +
-  labs(title = "Income by States", subtitle = 'Yearly adjust') +
+  labs(title = "Income by States", subtitle = '2010 - 2019') +
   theme(legend.position = "right")
 
 ```
 
 As unemployment rate improved, the states that had the worst unemployment rates actually turned to have the highest incomes or neighbor states that have the highest income.
 
-```{r, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=9,fig.height=9}
 homevalue <- subset(df, select = -c(1,5,6,7,8))
 colnames(homevalue) <- c('state','year','homevalue')
 
 plot_usmap(data = homevalue, values = "homevalue", color = "white", labels = FALSE) +
   facet_wrap(~year) +
    scale_fill_continuous(low = 'skyblue', high = 'red', name = "Homevalue", labels = scales::comma) +
-  labs(title = "Home Value by States", subtitle = 'Yealy Adjusted') +
+  labs(title = "Home Value by States", subtitle = '2010 - 2019') +
   theme(legend.position = "right")
 ```
 
 Noted form before, home values typically follow income. The states that developed the highest income also developed comparatively higher home prices. However, looking at the map, there's another notable trend that can be observed. Despite having some of the highest income in US, the home prices in the Northeastern part of the country did not rise as dramatically as the Western part of the US. There's not enough data to conclusively understand why; perhaps we can augment the analysis in the future with weather data, sentiments, etc. to better understand. 
 
-```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7}
+```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=9,fig.height=9}
 ggplot(housedata, aes(x=housedata$Income, y=housedata$Home.Value, color=housedata$State.Name)) + 
   geom_point() + 
   geom_smooth(method = "lm") + 
   facet_geo(~ State.Name, grid = "us_state_grid2") +
-  stat_cor(aes(label = ..rr.label..), color = "red", geom = "label", size = 2)  + 
+  stat_cor(aes(label = ..rr.label..),color = 'blue', geom = "label", size = 1.5)  + 
   theme(legend.position = "none") +
   xlab("Income ($)") + 
   ylab("Home Value ($)") + 
    scale_y_continuous(labels = scales::comma) + 
    scale_x_continuous(labels = scales::comma) + 
-  labs(title = "Home Value vs Income", subtitle = '2010 - 2019 across 50 States') 
+  labs(title = "Home Value vs Income", subtitle = '2010 - 2019 across 50 States') +
+  theme(axis.text.x = element_text(angle = 55, size =5),
+        axis.text.y = element_text(size =5))
+
 ```
 
 
@@ -213,15 +216,16 @@ We can also confirm that select Northeastern States have an increase in income b
 Finally, to conclude this study, we will further investigate home value to better understand the specifics of how it changes for each State over the years. Through understanding the price dynamics across the market, we can perhaps help buyers/readers understand the history and navigate purchasing decisions. 
 
 
-```{r, fig.height=10, echo=FALSE, results='hide', message=FALSE, fig.width=6.5,fig.height=6.5}
+```{r, fig.height=10, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7, warning=FALSE}
 
 ggplot(housedata, aes(x = housedata$Home.Value, y = reorder(housedata$State.Name, housedata$Home.Value), color =df$Year)) +
   geom_point() +
   ylab("") +
   theme_linedraw() +
   theme(legend.position = "right") +
-  xlab("Home Value ($)") + ylab("State") + labs(title = "Home Value over the years", subtitle = '2010 - 2019') + scale_color_gradientn(name = 'Year', colours = topo.colors(7), breaks=c(2010, 2015, 2019))
-         
+  xlab("Home Value ($)") + ylab("State") + labs(title = "Home Value over the years", subtitle = '2010 - 2019') + scale_color_gradientn(name = 'Year', colours = topo.colors(7), breaks=c(2010, 2015, 2019)) +
+  scale_x_continuous(labels = scales::comma) +
+  theme(axis.text.y = element_text(size = 7))
 ```
 
 
@@ -242,13 +246,15 @@ fulldata$region <- as.factor(ifelse(fulldata$State.Name %in% northeast, 'Northea
                             ifelse(fulldata$State.Name %in% west, 'West','null')))))
 ```
 
-```{r, fig.width=20, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=6}
 ggplot(fulldata, aes(region,Home.Value)) + 
   geom_boxplot() + 
   facet_wrap("Year") +
+  coord_flip() + 
+  theme(axis.text.x = element_text(size=8, angle=45)) +
   scale_y_continuous(labels = scales::comma) +
-  coord_flip() +
-  theme_grey(16)
+  labs(x = 'Region', y = 'Home Value($)')
+
 ```
 
 
@@ -260,26 +266,36 @@ Next, we can divide the geography into the 4 major regions in US. Looking at the
 4. Northeast distribution of prices have remained relatively stable throughout the decade. 
 5. Midwest has the cheapest real estate and also the most narrow distribution
 
-```{r, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7}
+```{r, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7, warning = FALSE}
 df <- transform(df, ValuePerIncome = df$Home.Value /df$Income)
 target <- c(2010, 2019)
 subdf <- filter(df, Year %in% target)
 
-print(subdf)
-
 ggplot(subdf, aes(x = subdf$ValuePerIncome, y = reorder(subdf$State.Name, subdf$ValuePerIncome), color = as.factor(subdf$Year))) +
   geom_point() +
-  ylab("") +
+  ylab("") + 
   theme_linedraw() +
-  theme(legend.position = "right") + scale_color_manual(name = "Year", values = c("red", "blue")) +
-  xlab("Price/Income") + ylab("State") + labs(title = "Home Value / Income Ratio across 50 States", subtitle = '2010 - 2019')
+  theme(legend.position = "right") + 
+  scale_color_manual(name = "Year", values = c("red", "blue")) +
+  xlab("Price/Income") + 
+  ylab("State") + 
+  theme(axis.text.y = element_text(size = 6)) +
+  labs(title = "Home Value / Income Ratio across 50 States", subtitle = '2010 - 2019')
 ```
 
 ```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=8,fig.height=8, warning = FALSE}
 
-ggplot(subdf, aes(x=subdf$Year, y=subdf$ValuePerIncome, color=subdf$State.Name)) + geom_point() + geom_smooth(method = "lm") + facet_geo(~ State.Name, grid = "us_state_grid2") +
-  stat_cor(aes(label = ..rr.label..), color = "red", geom = "label")  + theme(legend.position = "none") +
-  xlab("Price/Income") + ylab("Year") + labs(title = "Home Value / Income Ratio across 50 States", subtitle = '2010 - 2019')
+ggplot(subdf, aes(x=subdf$Year, y=subdf$ValuePerIncome, color=subdf$State.Name)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  facet_geo(~ State.Name, grid = "us_state_grid2") +
+  stat_cor(aes(label = ..rr.label..), color = "red", geom = "label")  + 
+  theme(legend.position = "none") +
+  xlab("Price/Income") + 
+  theme(axis.text.x = element_text(angle = 360, size =6)) +
+  scale_x_discrete(limits = c(2010, 2019), breaks = seq(2010, 2019, 3)) +
+  ylab("Year") + 
+  labs(title = "Home Value / Income Ratio across 50 States", subtitle = '2010 - 2019')
 ```
 
 

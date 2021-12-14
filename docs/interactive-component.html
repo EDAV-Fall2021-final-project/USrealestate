@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Interactive component | Final Project</title>
-  <meta name="description" content="Chapter 6 Interactive component | Final Project" />
+  <title>Chapter 6 Interactive component | Housing Price Analysis</title>
+  <meta name="description" content="Chapter 6 Interactive component | Housing Price Analysis" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Interactive component | Final Project" />
+  <meta property="og:title" content="Chapter 6 Interactive component | Housing Price Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Interactive component | Final Project" />
+  <meta name="twitter:title" content="Chapter 6 Interactive component | Housing Price Analysis" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Felix Yeung / Yingfei Zhu / Yufan Cao" />
 
 
-<meta name="date" content="2021-12-14" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="results.html"/>
 <link rel="next" href="conclusion.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -69,15 +70,32 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">HousingPrice</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#home-value-data"><i class="fa fa-check"></i><b>2.1</b> Home Value Data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#other-variables"><i class="fa fa-check"></i><b>2.2</b> Other Variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#population"><i class="fa fa-check"></i><b>2.2.1</b> Population</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-sources.html"><a href="data-sources.html#housing-unit"><i class="fa fa-check"></i><b>2.2.2</b> Housing unit</a></li>
+<li class="chapter" data-level="2.2.3" data-path="data-sources.html"><a href="data-sources.html#income"><i class="fa fa-check"></i><b>2.2.3</b> Income</a></li>
+<li class="chapter" data-level="2.2.4" data-path="data-sources.html"><a href="data-sources.html#unemployment-rate"><i class="fa fa-check"></i><b>2.2.4</b> Unemployment Rate</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
-<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a><ul>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#understanding-relationships-between-economic-variables"><i class="fa fa-check"></i><b>5.1</b> Understanding relationships between economic variables</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#visualizing-the-known-relationships"><i class="fa fa-check"></i><b>5.2</b> Visualizing the known relationships</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#observing-key-variables-across-geographies"><i class="fa fa-check"></i><b>5.3</b> Observing key variables across geographies</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#price-comparison-of-home-value"><i class="fa fa-check"></i><b>5.4</b> Price comparison of Home Value</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="interactive-component.html"><a href="interactive-component.html#motivation"><i class="fa fa-check"></i><b>6.1</b> Motivation</a></li>
 <li class="chapter" data-level="6.2" data-path="interactive-component.html"><a href="interactive-component.html#instruction-on-how-to-engage-with-the-interactive-plot"><i class="fa fa-check"></i><b>6.2</b> Instruction on how to engage with the interactive plot</a></li>
 <li class="chapter" data-level="6.3" data-path="interactive-component.html"><a href="interactive-component.html#interpretation"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
@@ -94,7 +112,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Final Project</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Housing Price Analysis</a>
           </h1>
         </div>
 
@@ -102,15 +120,15 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="interactive-component" class="section level1">
+<div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<div id="motivation" class="section level2">
+<div id="motivation" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Motivation</h2>
 <p>As seen in our results in Chapter 5 for home value, our analysis covers the effect of the different economic variables on home value over 10 years. In our analysis, we were only able to visually compare across the different years &amp; States by plotting the graphs side-by side. This make it incredibly difficult to visually confirm trends through the geographic dimension versus the temporal dimension. In order to get a better overview of these changes, we decided to create a choropleth maps of home value which can be changed over time.</p>
 </div>
-<div id="instruction-on-how-to-engage-with-the-interactive-plot" class="section level2">
+<div id="instruction-on-how-to-engage-with-the-interactive-plot" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Instruction on how to engage with the interactive plot</h2>
-<p>This interactive plot demonstrates the average home value among 50 states in the US for 10 years. You can double click the top year bar to activate the year change tool. After activation, you can drag the tab throughout the years to see how the home values changes across the 50 States. When you hover your mouse over specific states on the map, you can also see a tooltip containing the state name, home value, and the year. Lastly, you can also hover over the legend to see all states that belong to the specific home value group in the selected year.</p>
+<p>This interactive plot demonstrates the average home value among 50 states in the US for 10 years. You can double click the top year bar to activate the year change tool. After activation, you can drag the tab throughout the years to see how the home values changes across the 50 States. When you hover your mouse over specific states on the map, you can also see a tooltip containing the state name, home value, and the year. Lastly, you can also hover over the legend to see all states that belong to the specific home value group in the selected year..</p>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 <style>
         body {
@@ -448,7 +466,7 @@ d3.json("counties-10m.json").then(function (root) {
 });
 </script>
 </div>
-<div id="interpretation" class="section level2">
+<div id="interpretation" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Interpretation</h2>
 <p>Starting in the year 2010, we observed that the average home value among the 50 States range from 90k – 300k. Massachusetts has the highest home value in the year 2010.
 As time passes, we notice that home value in the west region increases faster when compared to the Midwest, South, and the Northeast. In the year 2013, home value in California surpassed the home value in Massachusetts. Since then, California’s home value stayed as the highest home value among the 50 states. It can also be observed that the average home value of the Northeast and the West is higher than the average home value in the South region and the Midwest. Visualizing these trends interactively enables the viewer to firmly grasp the changes of value over the years across the regions, which adds a new dimension to understanding the data when compared to just static pictures.</p>
@@ -492,7 +510,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/GUANCHAOHUANG/d3/edit/main/06-interactive.Rmd",
+"link": "https://github.com/EDAV-Fall2021-final-project/USrealestate/edit/main/06-interactive.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -500,7 +518,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/GUANCHAOHUANG/d3/blob/main/06-interactive.Rmd",
+"link": "https://github.com/EDAV-Fall2021-final-project/USrealestate/blob/main/06-interactive.Rmd",
 "text": null
 },
 "download": null,
