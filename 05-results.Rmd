@@ -68,7 +68,7 @@ After discovering the relationships between unemployment rate, income, and home 
 
 ```{r, fig.height=15, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7, warning = FALSE}
 
-p <- ggplot(housedata, aes(x=housedata$Unemployment.Rate, y=housedata$Income)) + geom_point() + facet_wrap(housedata$Year) + geom_density_2d() +
+ggplot(housedata, aes(x=housedata$Unemployment.Rate, y=housedata$Income)) + geom_point() + facet_wrap(housedata$Year) + geom_density_2d() +
   xlab("Unemployment Rate") + ylab("Income ($)") + labs(title = "Density Distribution of Income vs Unemployment Rate", subtitle = '2010 - 2019') 
 
 ggplot(housedata, aes(x=housedata$Income, y=housedata$Home.Value)) + geom_point() + facet_wrap(housedata$Year) + geom_density_2d() +
