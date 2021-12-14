@@ -4,7 +4,7 @@
 
 ```{r, echo = FALSE, warning = FALSE, message=FALSE}
 
-rawdata <- read.csv("homevalue_city_missing.csv")
+rawdata <- read.csv("data/homevalue_city_missing.csv")
 
 rawdata<- as.data.frame(sapply(rawdata, as.numeric))
 rawdata <- subset(rawdata, select = -c(1,2))

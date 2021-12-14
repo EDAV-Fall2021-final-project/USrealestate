@@ -46,7 +46,7 @@ homevalue2019 <- homevalue_city %>% group_by(homevalue_city$StateName) %>%
   summarise_at(vars(X2019),list(X2019 = mean))
 homevalue <- cbind(homevalue, X2019=homevalue2019$X2019)
 
-write.csv(homevalue,"home_value_state.csv", row.names = TRUE)
+write.csv(homevalue,"data/home_value_state.csv", row.names = TRUE)
 
 ```
 

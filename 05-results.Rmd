@@ -3,7 +3,7 @@
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #Load Clean Data
-df <- read.csv("fulldata_state.csv")
+df <- read.csv("data/fulldata_state.csv")
 ```
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
@@ -234,7 +234,7 @@ From the above Cleveland Dot Plot, it is apparent that the most expensive States
 It is notable that most States have the highest value in the most recent year of 2019 with a few exceptions: Rhode Island & New Jersey.
 
 ```{r, echo=FALSE, results='hide', message=FALSE, fig.width=7,fig.height=7}
-fulldata <- read.csv("fulldata_state.csv")
+fulldata <- read.csv("data/fulldata_state.csv")
 
 northeast <- c('ME','NH','VT','MA','RI','CT','NY','NJ','PA')
 midwest <- c('ND','SD','NE','KS','MN','IA','MO','WI','IL','IN','MI','OH')
