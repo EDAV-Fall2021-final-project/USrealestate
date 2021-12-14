@@ -50,12 +50,12 @@ write.csv(homevalue,"data/home_value_state.csv", row.names = TRUE)
 
 ```
 
-Since we have a large amount of data from multiple sources, we decided to clen the data (details about methodology can be found in Chapter 4: Missing value) and build two data sets for our visualization. 
+Since we have a large amount of data from multiple sources, we decided to clean the data (details about methodology can be found in Chapter 4: Missing value) and build two data sets for our visualization. 
 
-The first one is the data set that contain the yearly average home value data for each state. To summaries the home value of each city into each state, we calculated the home value in a certain year by averaging the home value of all the cities in that state. Similarly, to summarize our monthly data to yearly data, we averaged home value across the 12 months in a year and stored it as the yearly home value. The result is a home value data set for each state from 2010-2019 that includes state name, state initial and home value for 10 years.
+The first data set contains the yearly average home value data for each state. Given that the raw data contains city level home values, we summarized to the state level by averaging the home value of all the cities in that state. Furthermore, we also summarized our monthly data to yearly data by averaging data acorss 12 months into a specific year. (Note averaging across the 12 months also standardized seasonality in the data.) The result is a home value data set for each state from 2010-2019 that includes state name, state initial and home value for 10 years.
 
-The second dataset we generated is the mixed data set for all our economic variables that may have an effect on home value as we listed before. Since we have 5 variables (state, home value, income, unemployment, and population), we collected 10 years worth of data and then transformed it from 3D to 2D. We used pivot-longer to increase the number of rows by transforming 'Year' as a column to keep in line with tidy principles. 
+The second data set we generated is the mixed data set for all our economic variables that may have an effect on home value as we listed before. Since we have 5 variables (state, home value, income, unemployment, and population), we collected 10 years worth of data and then transformed it from 3D to 2D. We used pivot-longer to increase the number of rows by transforming 'Year' as a column to keep in line with tidy principles. 
 
-Finally with these 2 data sets, we decided to further combine them so that each row of the data set would contain the following 8 variables: Area (state full name), State Name (state initial), Year, Home value, Population, Housing Unit, Unemployment rate, and Income. This final dataset would contain informatiom from all 50 States across the years 2010 to 2019.
+Finally with these 2 data sets, we decided to further combine them so that each row of the data set would contain the following 8 variables: Area (state full name), State Name (state initial), Year, Home value, Population, Housing Unit, Unemployment rate, and Income. This final data set would contain information from all 50 States across the years 2010 to 2019.
 
 
